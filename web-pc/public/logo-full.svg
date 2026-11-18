@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">MoneyNote</title>
+  <desc id="desc">A blue notebook with a gold coin, representing personal finance notes.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1688FF"/><stop offset="1" stop-color="#0752D8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD52E"/><stop offset="1" stop-color="#FF970D"/>
+    </linearGradient>
+  </defs>
+  <!-- notebook (page fill kept: it is the paper, not the canvas background) -->
+  <rect x="302" y="214" width="420" height="432" rx="88" fill="#FFFFFF" stroke="url(#blue)" stroke-width="54"/>
+  <!-- binding tabs -->
+  <rect x="402" y="178" width="52" height="116" rx="26" fill="url(#blue)"/>
+  <rect x="566" y="178" width="52" height="116" rx="26" fill="url(#blue)"/>
+  <!-- subtle page lines -->
+  <path d="M400 370 H590 M400 442 H528 M400 514 H485" fill="none" stroke="#B9D2F5" stroke-width="38" stroke-linecap="round"/>
+  <!-- coin -->
+  <circle cx="666" cy="526" r="137" fill="url(#gold)"/>
+  <path d="M666 440 V612 M708 464 C693 447 674 441 653 443 C621 445 603 463 604 487 C606 513 631 522 668 530 C704 538 725 551 725 578 C725 606 701 624 666 626 C638 627 612 618 596 601" fill="none" stroke="#FFFFFF" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- wordmark -->
+  <text x="512" y="830" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="700" letter-spacing="-5" fill="#092D70">MoneyNote</text>
+</svg>
