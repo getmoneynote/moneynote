@@ -51,6 +51,14 @@ backups
 # 仓库里提交的预构建快照不进上下文，避免残留旧 hash 文件。
 backend/src/main/resources/public
 
+# ---- Flutter 工程：根 Dockerfile 只用 backend + web-pc，App 端整体不进上下文 ----
+# flutter/ 自带 build/（可达数百 MB）与 web2/（20MB canvaskit + main.dart.js），
+# 从来不参与根镜像构建；按目录整体排除，顺带兜住将来可能出现的 flutter-* 变体。
+# 注意：flutter 自己的 Dockerfile / Dockerfile2 / Dockerfile3 是独立 context，
+# 不受这里影响（在 flutter/ 目录内 build 需要 web2/，那边没有 .dockerignore）。
+flutter
+
+
 # ---- 非构建必需内容 / 本地密钥 ----
 docs
 help

@@ -19,10 +19,6 @@ Thumbs.db
 /config/
 /backups/
 
-# 暂不提交
-flutter-v1
-flutter
-
 # 环境变量 / 本地密钥：.env 一律不入库，需要给别人看结构就提交 .env.example
 .env
 .env.*
@@ -31,3 +27,8 @@ flutter
 # 前端构建产物快照：Dockerfile 会在镜像内 pnpm build 后重新生成并覆盖，
 # 仓库里留一份带 hash 的旧快照只会让 diff 膨胀（本次约 5.7MB）
 backend/src/main/resources/public/
+
+# Flutter Web 构建产物：flutter build web --output web2 的结果，供 Dockerfile 直接 COPY。
+# 20MB 全是可再生的编译产物（canvaskit.wasm 6.5MB + main.dart.js 3.4MB），
+# 且极易与源码脱节（曾长期停留在 1.0.43）。构建镜像前本地或 CI 重新生成即可。
+flutter/web2/

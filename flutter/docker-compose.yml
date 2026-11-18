@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  moneywhere-h5:
+    image: nginx:1.21-alpine
+    volumes:
+      - ./web2:/usr/share/nginx/html
+    ports:
+      - "9000:80"
