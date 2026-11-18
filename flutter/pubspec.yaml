@@ -102,6 +102,8 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logo.png"
+  # 1024 蓝底（#092D70）+ 图标 72%，底板已烘进图里；
+  # 不要换成 assets/logo.png（透明满幅，只给登录页用）
+  image_path: "icon/launcher.png"
   min_sdk_android: 21
 

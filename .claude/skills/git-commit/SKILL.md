@@ -14,7 +14,7 @@ description: 提交仓库代码：git add 全部改动（含未跟踪的新建�
 
 ## 前置要求
 
-- 所有命令在**仓库根目录**执行（`E:\Work\moneynote\moneynote`），若当前目录不在仓库根，先 `cd` 过去或用 `git -C`。
+- 所有命令在**仓库根目录**执行，若当前目录不在仓库根，先 `cd` 过去或用 `git -C`。
 - Commit message 优先取 skill 传入的参数（`args`）；未传时根据变更内容自动归纳。
 
 ## 步骤

@@ -1,0 +1,61 @@
+name: api acr image
+
+# 触发条件：push 到 main 且影响镜像内容的文件有改动；也支持手动触发。
+# 与 docker-image.yml（Docker Hub）保持一致的触发范围，两个镜像内容始终同源。
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'web-pc/**'
+      - 'Dockerfile'
+      - 'entrypoint.sh'
+      - '.dockerignore'
+      - '.github/workflows/acr-image.yml'
+
+# 同一分支只保留最新一次构建，避免连续 push 排队把阿里云镜像写乱序
+concurrency:
+  group: acr-image-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ACR_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+  ACR_REPOSITORY: moneynote/moneynote-api
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Aliyun Container Registry (ACR)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.ACR_REGISTRY }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # 根 Dockerfile 为多阶段构建：前端（pnpm build）→ 后端（mvn package）→ 运行时
+      # 无需再单独 setup-java / gradlew，JDK 与构建全在镜像内完成
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          # 与 Docker Hub 镜像保持一致：仅两种主流架构，其余架构无实际用户
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.ACR_REGISTRY }}/${{ env.ACR_REPOSITORY }}:latest
+            ${{ env.ACR_REGISTRY }}/${{ env.ACR_REPOSITORY }}:${{ github.sha }}
+          # 复用 GitHub Actions 缓存，二次构建可跳过 pnpm/maven 依赖下载
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
