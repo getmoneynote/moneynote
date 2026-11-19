@@ -1,5 +1,7 @@
 services:
   moneynote:
+    # 国内网络访问 Docker Hub 慢/超时，可换成阿里云同步镜像（内容完全一致）：
+    # image: registry.cn-hangzhou.aliyuncs.com/moneynote/moneynote:latest
     image: markliu2018/moneynote:latest
     restart: unless-stopped
     ports:
