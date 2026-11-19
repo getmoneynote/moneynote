@@ -1,4 +1,4 @@
-name: api acr image
+name: moneynote acr image
 
 # 触发条件：push 到 main 且影响镜像内容的文件有改动；也支持手动触发。
 # 与 docker-image.yml（Docker Hub）保持一致的触发范围，两个镜像内容始终同源。
@@ -22,7 +22,9 @@ concurrency:
 
 env:
   ACR_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  ACR_REPOSITORY: moneynote/moneynote-api
+  # ACR 命名空间/仓库名：moneynote 命名空间下的 moneynote 仓库
+  # （与 Docker Hub 的 markliu2018/moneynote 同名，两边镜像一一对应）
+  ACR_REPOSITORY: moneynote/moneynote
 
 jobs:
   build:
@@ -56,6 +58,11 @@ jobs:
           tags: |
             ${{ env.ACR_REGISTRY }}/${{ env.ACR_REPOSITORY }}:latest
             ${{ env.ACR_REGISTRY }}/${{ env.ACR_REPOSITORY }}:${{ github.sha }}
+          # ACR 不支持 buildx 默认附带的 attestation 清单，推送会报
+          # "denied: unknown manifest class for application/vnd.oci.empty.v1+json"
+          # （镜像层已推成功，卡在最后推 manifest list），必须显式关掉
+          provenance: false
+          sbom: false
           # 复用 GitHub Actions 缓存，二次构建可跳过 pnpm/maven 依赖下载
           cache-from: type=gha
           cache-to: type=gha,mode=max
