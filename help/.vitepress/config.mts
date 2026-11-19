@@ -11,6 +11,7 @@ export default defineConfig({
       { text: '指南', link: '/build' },
       { text: '核心概念', link: '/conceptions/user' },
       { text: '记账案例', link: '/cases/reimbursement' },
+      { text: '备份数据', link: '/backup' },
       { text: '下载客户端', link: '/app' },
     ],
     sidebar: [
@@ -34,6 +35,10 @@ export default defineConfig({
           { text: '充值卡', link: '/cases/charge_card' },
           { text: '其他案例', link: '/cases/other_cases' },
         ],
+      },
+      {
+        text: '数据安全',
+        items: [{ text: '备份与恢复', link: '/backup' }],
       },
       {
         text: '客户端',

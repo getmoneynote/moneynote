@@ -114,7 +114,7 @@ npm start
 
 ## 文档
 
-- 使用文档见 `help/` 目录：[核心概念](help/conceptions)、[搭建记账体系](help/build.md)、[记账案例](help/cases)
+- 使用文档见 `help/` 目录：[核心概念](help/conceptions)、[搭建记账体系](help/build.md)、[记账案例](help/cases)、[备份与恢复](help/backup.md)
 - 开发约定见 `CLAUDE.md`、`web-pc/CLAUDE.md`、`backend/CLAUDE.md`
 
 ## 社区交流
